@@ -20,21 +20,6 @@ class UsersViewModelTest {
 
     private lateinit var viewModel: UsersViewModel
 
-    val mockedUser = GithubUser(
-        id = 1,
-        login = "teste",
-        name = "Teste nome",
-        avatar = "https://avatars.githubusercontent.com/u/39884163?v=4",
-        publicRepos = 0,
-        publicGists = 0,
-        location = "São Paulo",
-        following = 0,
-        followers = 0,
-        company = "Compania teste",
-        repos = null,
-        blog = null
-    )
-
     private val repo: GithubUserRepository = mockk()
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -73,6 +58,7 @@ class UsersViewModelTest {
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `search text should equals the input text`() = runTest {
         val inputText = "test"
