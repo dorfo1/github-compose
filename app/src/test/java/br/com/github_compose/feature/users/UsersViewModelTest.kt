@@ -46,6 +46,7 @@ class UsersViewModelTest {
         viewModel = UsersViewModel(repo)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `user list should be success when server returns success`() = runTest {
         coEvery { repo.searchUsers("teste") } returns flow { emit(Resource.Success(emptyList())) }
@@ -58,17 +59,29 @@ class UsersViewModelTest {
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `userState should be error when server returns error`() = runTest {
         coEvery { repo.searchUsers(any()) } returns flow { emit(Resource.Error(Exception())) }
 
         viewModel.updateSearchText("teste")
         delay(2000L)
-        runBlocking {
-            viewModel.userList.test {
-                val awaitItem = awaitItem()
-                assert(awaitItem is Resource.Error)
-            }
+
+        viewModel.userList.test {
+            val awaitItem = awaitItem()
+            assert(awaitItem is Resource.Error)
+        }
+    }
+
+    @Test
+    fun `search text should equals the input text`() = runTest {
+        val inputText = "test"
+
+        viewModel.updateSearchText(inputText)
+
+        viewModel.searchText.test {
+            val awaitItem = awaitItem()
+            assert(awaitItem == inputText)
         }
     }
 
