@@ -1,6 +1,7 @@
 package br.com.github_compose.feature.detail
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -62,7 +64,10 @@ fun UserDetailScreen(
     ) else stringResource(id = R.string.detail_title)
 
     GithubcomposeTheme {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+        ) {
             TopAppBar(
                 title = { Text(text = title) },
                 navigationIcon = {
@@ -91,48 +96,50 @@ fun UserDetailScreen(
 @Composable
 fun UserDetailData(data: GithubUser?) {
     data?.let { user ->
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            item {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(user.avatar)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(90.dp)
-                            .clip(CircleShape)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = user.login, style = MaterialTheme.typography.titleMedium)
+        Surface {
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(user.avatar)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(90.dp)
+                                .clip(CircleShape)
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = user.login, style = MaterialTheme.typography.titleMedium)
+                    }
                 }
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                UserOptionalData(user)
-            }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                Text(
-                    modifier = Modifier.padding(start = 16.dp),
-                    text = stringResource(id = R.string.repositories, user.publicRepos),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-            item { Spacer(modifier = Modifier.height(8.dp)) }
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+                item {
+                    UserOptionalData(user)
+                }
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+                item {
+                    Text(
+                        modifier = Modifier.padding(start = 16.dp),
+                        text = stringResource(id = R.string.repositories, user.publicRepos),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
+                item { Spacer(modifier = Modifier.height(8.dp)) }
 
-            items(items = user.repos ?: emptyList()) {
-                ReposItem(it)
+                items(items = user.repos ?: emptyList()) {
+                    ReposItem(it)
+                }
             }
         }
     }
