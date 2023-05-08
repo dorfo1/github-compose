@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">github-compose</string>
+    <string name="find_user">Buscar usuário</string>
+    <string name="type_to_find_user">Digite para buscar usuário</string>
+    <string name="empty_user_list_message">Nenhum usuário encontrado, tente novamente.</string>
+    <string name="generic_erroMessage">Falha de conexão, tente novamente mais tarde</string>
+    <string name="api_limit_error">Limite de requisições atingido, tente novamente mais tarde</string>
+    <string name="click_more_details">Clique para mais detalhes</string>
+    <string name="detail_title">Informações de %s</string>
+    <string name="fail_to_fetch_user_data">Falha ao buscar informações do usuário</string>
+    <string name="info">Informações</string>
+    <string name="repositories">%s Repositórios públicos</string>
+</resources>
