@@ -99,4 +99,8 @@ dependencies {
     def mockk_version = "1.13.3"
     testImplementation "io.mockk:mockk:${mockk_version}"
     debugImplementation "io.mockk:mockk-android:1.13.3"
+
+    testImplementation 'app.cash.turbine:turbine:0.12.3'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
 }
