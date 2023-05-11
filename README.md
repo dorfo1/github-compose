@@ -1,6 +1,6 @@
 # github-compose
 
-App que busca apps pelo login no github e lista seus repositórios publicos.
+App que busca usuários pelo login no github e lista seus repositórios publicos.
 
 ## Como usar
 
